@@ -55,7 +55,7 @@ client.on("message_create", async (message) => {
           const users = JSON.parse(Buffer.concat(data).toString());
           // console.log(users);
           users.forEach((user) => {
-            dataku =JSON.parse(`{"id": ${user.id}, "name": "${user.name}", "email": "${user.email}"}`);
+            dataku = `ID: ${user.id}, Name: ${user.name}, Email: ${user.email}`;
           });
           console.log(dataku);
           // for (user of users) {
