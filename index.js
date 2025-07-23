@@ -57,6 +57,7 @@ function panggil_data() {
     function (error, results, fields) {
       if (error) throw error;
       console.log("The solution is: ", results[0].name);
+      return results[0].name;
     }
   );
 
