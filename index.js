@@ -35,7 +35,7 @@ client.on("message_create", async (message) => {
   if (message.body.toLowerCase() === "ping") {
     // send back "pong" to the chat the message was sent in
     await panggil_data();
-    await message.reply("pong");
+    await message.reply(panggil_data());
   }
 });
 
