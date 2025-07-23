@@ -10,8 +10,9 @@ const client = new Client({
     dataPath: "AUTH",
   }),
   puppeteer: {
-    executablePath: chromium.path,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    // executablePath: chromium.path,
+    // args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    headless: false,
   },
 });
 
