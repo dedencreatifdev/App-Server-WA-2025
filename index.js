@@ -30,9 +30,9 @@ client.on("qr", (qr) => {
 
 client.on("message_create", async (message) => {
   console.log(message.body);
-  if (message.body === "ping") {
+  if (message.body.toLowerCase() === "ping") {
     // send back "pong" to the chat the message was sent in
-    await client.sendMessage(message.from, "pong");
+    await message.reply('pong');
   }
 });
 
