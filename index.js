@@ -2,7 +2,7 @@ const { Client, LocalAuth } = require("whatsapp-web.js");
 const qrcode = require("qrcode-terminal");
 
 const chromium = require("chromium");
-// const browser = await puppeteer.launch({ignoreDefaultArgs: ['--disable-extensions']});
+var qr = require("qr-image");
 
 // Create a new client instance
 const client = new Client({
@@ -32,7 +32,7 @@ client.on("message_create", async (message) => {
   console.log(message.body);
   if (message.body.toLowerCase() === "ping") {
     // send back "pong" to the chat the message was sent in
-    await message.reply('pong');
+    await message.reply("pong");
   }
 });
 
@@ -41,10 +41,14 @@ client.initialize();
 
 const express = require("express");
 const app = express();
-const port = 80;
+const port = 3000;
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  var qr_svg = qr.image("I love QR!", { type: "svg" });
+  qr_svg.pipe(require("fs").createWriteStream("i_love_qr.svg"));
+
+  var svg_string = qr.imageSync("I love QR!", { type: "svg" });
+  res.send(svg_string);
 });
 
 app.listen(port, () => {
