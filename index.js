@@ -9,11 +9,11 @@ const client = new Client({
   authStrategy: new LocalAuth({
     dataPath: "AUTH",
   }),
-  puppeteer: {
-    // executablePath: chromium.path,
-    // args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    headless: false,
-  },
+  // puppeteer: {
+  //   // executablePath: chromium.path,
+  //   // args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  //   headless: true,
+  // },
 });
 
 // When the client is ready, run this code (only once)
