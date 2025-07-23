@@ -4,6 +4,8 @@ const qrcode = require("qrcode-terminal");
 const chromium = require("chromium");
 var qr = require("qr-image");
 var kodeQr = "";
+var dts;
+const https = require("https");
 
 // Create a new client instance
 const client = new Client({
@@ -32,42 +34,48 @@ client.on("qr", (qr) => {
 
 client.on("message_create", async (message) => {
   console.log(message.body);
-  if (message.body.toLowerCase() === "ping") {
-    // send back "pong" to the chat the message was sent in
-    await panggil_data();
-    await message.reply(panggil_data());
+  // If the message is "ping", reply with "pong"
+  if (message.body.toLowerCase() === "deden") {
+    https
+      .get("https://jsonplaceholder.typicode.com/users", (res) => {
+        let data = [];
+        const headerDate =
+          res.headers && res.headers.date
+            ? res.headers.date
+            : "no response date";
+        console.log("Status Code:", res.statusCode);
+        console.log("Date in Response header:", headerDate);
+
+        res.on("data", (chunk) => {
+          data.push(chunk);
+        });
+
+        res.on("end", () => {
+          console.log("Response ended: ");
+          const users = JSON.parse(Buffer.concat(data).toString());
+          // console.log(users);
+          users.forEach((user) => {
+            dataku =JSON.parse(`{"id": ${user.id}, "name": "${user.name}", "email": "${user.email}"}`);
+          });
+          console.log(dataku);
+          // for (user of users) {
+          //   console.log(`Got user with id: ${user.id}, name: ${user.name}`);
+          //   dataku = `ID: ${user.id}, Name: ${user.name}, Email: ${user.email}`;
+          // }
+          // message.reply(dataku);
+        });
+      })
+      .on("error", (err) => {
+        console.log("Error: ", err.message);
+      });
   }
 });
-
-// mysql
-
-function panggil_data() {
-  var mysql = require("mysql");
-  var connection = mysql.createConnection({
-    host: "srv1417.hstgr.io",
-    user: "u349378717_sparepart",
-    password: "Adzka@001",
-    database: "u349378717_sparepart",
-  });
-
-  connection.connect();
-
-  connection.query(
-    "SELECT * FROM users",
-    function (error, results, fields) {
-      if (error) throw error;
-      console.log("The solution is: ", results[0].name);
-      return results[0].name;
-    }
-  );
-
-  connection.end();
-}
 
 // Start your client
 client.initialize();
 
 const express = require("express");
+const { json } = require("stream/consumers");
 const app = express();
 const port = 3000;
 
