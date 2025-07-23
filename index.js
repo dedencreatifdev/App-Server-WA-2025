@@ -1,19 +1,20 @@
 const { Client, LocalAuth } = require("whatsapp-web.js");
 const qrcode = require("qrcode-terminal");
 
-const chromium = require('chromium');
-
+const chromium = require("chromium");
+// const browser = await puppeteer.launch({ignoreDefaultArgs: ['--disable-extensions']});
 
 // Create a new client instance
 const client = new Client({
   authStrategy: new LocalAuth({
     dataPath: "AUTH",
   }),
-  // puppeteer: {
-  //   // executablePath: chromium.path,
-  //   // args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  //   headless: true,
-  // },
+  // browser
+  puppeteer: {
+    executablePath: chromium.path,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    headless: true,
+  },
 });
 
 // When the client is ready, run this code (only once)
