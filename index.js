@@ -3,6 +3,7 @@ const qrcode = require("qrcode-terminal");
 
 const chromium = require("chromium");
 var qr = require("qr-image");
+var kodeQr='';
 
 // Create a new client instance
 const client = new Client({
@@ -25,6 +26,7 @@ client.once("ready", () => {
 // When the client received QR-Code
 client.on("qr", (qr) => {
   console.log(chromium.path);
+  kodeQr = qr;
   qrcode.generate(qr, { small: true });
 });
 
@@ -44,10 +46,10 @@ const app = express();
 const port = 3000;
 
 app.get("/", (req, res) => {
-  var qr_svg = qr.image("I love QR!", { type: "svg" });
-  qr_svg.pipe(require("fs").createWriteStream("i_love_qr.svg"));
+  var qr_svg = qr.image(kodeQr, { type: "svg" });
+  qr_svg.pipe(require("fs").createWriteStream("i_qr.svg"));
 
-  var svg_string = qr.imageSync("I love QR!", { type: "svg" });
+  var svg_string = qr.imageSync(kodeQr, { type: "svg", size: "7", margin: 1 });
   res.send(svg_string);
 });
 
