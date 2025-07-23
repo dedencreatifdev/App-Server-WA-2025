@@ -62,7 +62,7 @@ client.on("message_create", async (message) => {
           //   console.log(`Got user with id: ${user.id}, name: ${user.name}`);
           //   dataku = `ID: ${user.id}, Name: ${user.name}, Email: ${user.email}`;
           // }
-          // message.reply(dataku);
+          message.reply(dataku);
         });
       })
       .on("error", (err) => {
