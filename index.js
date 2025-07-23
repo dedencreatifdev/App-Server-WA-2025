@@ -3,7 +3,7 @@ const qrcode = require("qrcode-terminal");
 
 const chromium = require("chromium");
 var qr = require("qr-image");
-var kodeQr='';
+var kodeQr = "";
 
 // Create a new client instance
 const client = new Client({
@@ -34,9 +34,34 @@ client.on("message_create", async (message) => {
   console.log(message.body);
   if (message.body.toLowerCase() === "ping") {
     // send back "pong" to the chat the message was sent in
+    await panggil_data();
     await message.reply("pong");
   }
 });
+
+// mysql
+
+function panggil_data() {
+  var mysql = require("mysql");
+  var connection = mysql.createConnection({
+    host: "srv1417.hstgr.io",
+    user: "u349378717_sparepart",
+    password: "Adzka@001",
+    database: "u349378717_sparepart",
+  });
+
+  connection.connect();
+
+  connection.query(
+    "SELECT * FROM users",
+    function (error, results, fields) {
+      if (error) throw error;
+      console.log("The solution is: ", results[0].name);
+    }
+  );
+
+  connection.end();
+}
 
 // Start your client
 client.initialize();
