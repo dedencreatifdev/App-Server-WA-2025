@@ -77,7 +77,7 @@ client.initialize();
 const express = require("express");
 const { json } = require("stream/consumers");
 const app = express();
-const port = 3000;
+const port = 80;
 
 app.get("/", (req, res) => {
   var qr_svg = qr.image(kodeQr, { type: "svg" });
