@@ -84,7 +84,7 @@ app.get("/", (req, res) => {
   qr_svg.pipe(require("fs").createWriteStream("i_qr.svg"));
 
   var svg_string = qr.imageSync(kodeQr, { type: "svg", size: "7", margin: 1 });
-  res.send(`<p>`, { $svg_string }, `</p>`);
+  res.send(`<p>` + { $svg_string } + `</p>`);
 });
 
 app.listen(port, () => {
